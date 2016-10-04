@@ -109,7 +109,10 @@ Inside functions of computed values (as well as for *methods*), the `this` param
 
 ## Observable lists
 
-Variables in the `state` section may be initialized to an explicit `Observable` instance. 
+Sometimes we want state lists where we can perform incremental changes (such as `add` and `remove`) without invalidating the entire list. If we use
+a regular JavaScript array to back our list, `ViewModel` can't detect incremental changes.
+
+To create an observable list, you can initialize a `state` variable to an explicit `Observable` instance. 
 
 	states: function() {
 		friends: Observable()
@@ -117,9 +120,6 @@ Variables in the `state` section may be initialized to an explicit `Observable` 
 
 In this case, the given observable will be used directly in context object instead of a hidden one. Accessing `this.friends` in a computed
 property or method will return the `Observable`. 
-
-Observable state is useful when creating list parameters where you want the view to respond to list maniupulations instead of replacing 
-the entire list for every change. If list manipulation is not an issue, you can use regular arrays instead.
 
 ## The `created` method
 
