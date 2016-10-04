@@ -1,7 +1,7 @@
 
 # FuseJS ViewModel API (proposal)
 
-This repo will contain documentation, implementation, tests and example for a new ViewModel API that we propose to add to a future version of Fuse if it turns out well.
+This repo will contain documentation, implementation, tests and examples for a new ViewModel API that we propose to add to a future version of Fuse if it turns out well.
 
 This is an open source effort, pull requests are welcome.
 
@@ -16,7 +16,7 @@ and improvisation on a component-by-component basis.
 
 * Plain Observables are hard to teach, hard to learn and hard to debug when something goes wrong.
 * Experienced JS users are more familiar with a stricter component model (Vue, React, Angular)
-* The current vanilla Fuse pattern encourages non-strict view model code (dependent on `this` and non-standard injected symbols)
+* The current (0.27) vanilla Fuse pattern encourages non-strict view model code, where `this` has a defined meaning in the root scope  and non-standard symbols are injected. This `ViewModel` class intends to wraps that up so we get complete strict mode.
 * `ViewModel` can be implemented as a plain JS layer that results in a tree of Observables, requiring no new protocol between JS and UX.
 
 ## Usage
@@ -116,10 +116,12 @@ The `methods` section hold functions that the view can call to make logical oper
 
 ## Property change handlers
 
-The `onchanged` section hodl functions that react to changes in UX properties (`ux:Property`) on the component
+The `onchanged` section holds functions that react to changes in UX properties (`ux:Property`) on the component.
 
 	onchanged: {
 		Parameter: function(p) {
 			debug_log "The parameter to this page changed to " + JSON.stringify(p);
 		}
 	}
+
+> The `onchanged` feature depends on proposed Fuse changes not yet in production.
