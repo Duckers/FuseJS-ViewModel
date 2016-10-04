@@ -14,8 +14,8 @@ and improvisation on a component-by-component basis.
 
 ## Motivation
 
-* Plain Observables are hard to teach, hard to learn and hard to debug when something goes wrong.
-* Experienced JS users are more familiar with a stricter component model (Vue, React, Angular)
+* Plain Observables are somewhat hard to teach, hard to learn and hard to debug. In particular, newbies are often confused by the asynchronous nature of observables and the fact that no data flows unles they are subscirbed to.
+* Many JS developers are more familiar with a stricter component model (Vue, React, Angular).
 * The current (0.27) vanilla Fuse pattern encourages non-strict view model code, where `this` has a defined meaning in the root scope  and non-standard symbols are injected. This `ViewModel` class intends to wraps that up so we get complete strict mode.
 * `ViewModel` can be implemented as a plain JS layer that results in a tree of Observables, requiring no new protocol between JS and UX.
 
