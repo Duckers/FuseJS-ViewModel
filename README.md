@@ -103,7 +103,9 @@ detects what `computed` functions need to re-evaluate.
 
 Inside functions of computed values (as well as for *methods*), the `this` parameter refers to the *context* object of the `ViewModel`. The context object contains:
 
-* All the *states* as properties where `get`/`set` manipulates the hidden observable
+* All the *states* as properties where `get`/`set` manipulates the hidden observable.
+* All *computed* states as properties where `get` returnes an up to date value.
+* All *methods* as functions that are called on the context object.
 
 ## Observable lists
 
