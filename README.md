@@ -61,7 +61,7 @@ In a common and recommended UX markup scenario, each `ux:Class` has its own `Vie
 
 				onchanged: {
 					Parameter: function(p) {
-						debug_log "The parameter to this page changed to " + JSON.stringify(p);
+						console.log("The parameter to this page changed to " + JSON.stringify(p));
 					}
 				}
 			}
@@ -152,7 +152,7 @@ The `onchanged` section holds functions that react to changes in UX properties (
 
 	onchanged: {
 		Parameter: function(p) {
-			debug_log "The parameter to this page changed to " + JSON.stringify(p);
+			console.log("The parameter to this page changed to " + JSON.stringify(p));
 		}
 	}
 
