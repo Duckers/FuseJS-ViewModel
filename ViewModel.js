@@ -26,10 +26,10 @@ function ViewModel(module, desc) {
 		}
 	}
 
-	if ("state" in desc) {
-		for (var s in desc.state) {
+	if ("states" in desc) {
+		for (var s in desc.states) {
 
-			var val = desc.state[s];
+			var val = desc.states[s];
 			if (val instanceof Observable) {
 				model[s] = val;
 				self[s] = val;

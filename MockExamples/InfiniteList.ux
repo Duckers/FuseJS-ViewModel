@@ -5,7 +5,7 @@
 
 		module.exports = ViewModel(module, {
 
-			state: {
+			states: {
 				friends: Observable()
 			},
 

@@ -40,7 +40,7 @@ In a common and recommended UX markup scenario, each `ux:Class` has its own `Vie
 
 			module.exports = ViewModel(module, { 
 
-				state: {
+				states: {
 					tasks: [],
 					newTask: ""
 				},
@@ -77,19 +77,19 @@ In a common and recommended UX markup scenario, each `ux:Class` has its own `Vie
 
 ## States
 
-The `state` section of the descriptor holds plain data variables that may change over the lifetime of the component.
+The `states` section of the descriptor holds plain data variables that may change over the lifetime of the component.
 
-	state: {
+	states: {
 		tasks: [],
 		newTask: ""
 	} 
 
-The `state` should only be modified by `methods` and `events`. The `ViewModel` will create a hidden `Observable` and expose
+The `states` should only be modified by `methods` and `events`. The `ViewModel` will create a hidden `Observable` and expose
 a property on the context object.
 
 ## Computed values
 
-The `computed` section of the descriptor holds functions that compute values derived from the `state`. When states change, the `ViewModel` automatically
+The `computed` section of the descriptor holds functions that compute values derived from the `states`. When states change, the `ViewModel` automatically
 detects what `computed` functions need to re-evaluate. 
 
 	computed: {
@@ -112,9 +112,9 @@ Inside functions of computed values (as well as for *methods*), the `this` param
 Sometimes we want state lists where we can perform incremental changes (such as `add` and `remove`) without invalidating the entire list. If we use
 a regular JavaScript array to back our list, `ViewModel` can't detect incremental changes.
 
-To create an observable list, you can initialize a `state` variable to an explicit `Observable` instance. 
+To create an observable list, you can initialize a `states` variable to an explicit `Observable` instance. 
 
-	states: function() {
+	states: {
 		friends: Observable()
 	}
 
