@@ -28,18 +28,26 @@ function ViewModel(module, desc) {
 
 	if ("state" in desc) {
 		for (var s in desc.state) {
-			model[s] = Observable(desc.state[s]);
 
-			Object.defineProperty(self, s, {
-				get: function() {
-					self.invalidate();
-					return model[s].value;
-				}
-				set: function(value) {
-					model[s].value = value;
-					self.invalidate();
-				}
-			})
+			var val = desc.state[s];
+			if (val instanceof Observable) {
+				model[s] = val;
+				self[s] = val;
+			}
+			else {
+				model[s] = Obserable(val);
+
+				Object.defineProperty(self, s, {
+					get: function() {
+						self.invalidate();
+						return model[s].value;
+					}
+					set: function(value) {
+						model[s].value = value;
+						self.invalidate();
+					}
+				});
+			}
 		}
 	}
 
@@ -81,6 +89,10 @@ function ViewModel(module, desc) {
 				})
 			}
 		}
+	}
+
+	if ("created" in desc) {
+		desc.created.call(self);
 	}
 
 	return model;

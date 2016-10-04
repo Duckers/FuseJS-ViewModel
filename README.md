@@ -75,12 +75,7 @@ In a common and recommended UX markup scenario, each `ux:Class` has its own `Vie
 	</Page>
 
 
-
-## Descriptors
-
-The `/* descriptor */` mentioned above is an object with certain sections.
-
-### States
+## States
 
 The `state` section of the descriptor holds plain data variables that may change over the lifetime of the component.
 
@@ -89,9 +84,10 @@ The `state` section of the descriptor holds plain data variables that may change
 		newTask: ""
 	} 
 
-The `state` should only be modified by `methods` and `events`.
+The `state` should only be modified by `methods` and `events`. The `ViewModel` will create a hidden `Observable` and expose
+a property on the context object.
 
-### Computed values
+## Computed values
 
 The `computed` section of the descriptor holds functions that compute values derived from the `state`. When states change, the `ViewModel` automatically
 detects what `computed` functions need to re-evaluate. 
@@ -100,6 +96,39 @@ detects what `computed` functions need to re-evaluate.
 		tasksRemainingLabel: function (){
 			var count = this.tasks.filter(function(x) { return !x.isDone; }).length;
 			return "There are " + count + " remaining tasks."
+		}
+	}
+
+## Context objects
+
+Inside functions of computed values (as well as for *methods*), the `this` parameter refers to the *context* object of the `ViewModel`. The context object contains:
+
+* All the *states* as properties where `get`/`set` manipulates the hidden observable
+
+## Observable lists
+
+Variables in the `state` section may be initialized to an explicit `Observable` instance. 
+
+	states: function() {
+		friends: Observable()
+	}
+
+In this case, the given observable will be used directly in context object instead of a hidden one. Accessing `this.friends` in a computed
+property or method will return the `Observable`. 
+
+Observable state is useful when creating list parameters where you want the view to respond to list maniupulations instead of replacing 
+the entire list for every change. If list manipulation is not an issue, you can use regular arrays instead.
+
+## The `created` method
+
+The `created` method is called when the `ViewModel` is initialized. You can e.g. use this to populate the state.
+
+	created: function() {
+		for (var i = 0; i < 30; i++) {
+			this.friends.add({ 
+				name: "Generic friend " + i,
+				avatar: "Assets/avatar" + ((Math.random()*4)+1) ".png"
+			})
 		}
 	}
 
@@ -113,6 +142,7 @@ The `methods` section hold functions that the view can call to make logical oper
 			this.newTask = "";
 		}
 	},
+
 
 ## Property change handlers
 

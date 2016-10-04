@@ -1,0 +1,41 @@
+<App>
+	<JavaScript>
+		var Observable = require("FuseJS/Observable");
+		var ViewModel = require("FuseJS/ViewModel");
+
+		module.exports = ViewModel(module, {
+
+			state: {
+				friends: Observable()
+			},
+
+			created: function() {
+				for (var i = 0; i < 30; i++) {
+					this.friends.add({
+						name: "Generic Friend " + i,
+						avatar: "Assets/avatar" + ((Math.random()*4)+1) ".png"
+					})
+				}	
+			},
+
+			methods: {
+				scrolledToEnd: function() {
+
+				}
+				scrolledToStart: function() {
+
+				}
+			}
+
+		})
+	</JavaScript>
+	<ScrollView>
+		<StackPanel>
+			<Each Items="{friends}">
+				<DockPanel>
+					<Image File="{avatar}" />
+				</DockPanel>
+			</Image>
+		</StackPanel>
+	</ScrollView>
+</App>
