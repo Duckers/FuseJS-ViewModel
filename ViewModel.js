@@ -8,11 +8,11 @@ function ViewModel(module, desc) {
 	var validateCallback = undefined;
 	
 	var self = {
-		invalidate = function() {
+		invalidate: function() {
 			if (validateCallback) { return; }
 			if (!("computed" in desc)) { return; }
-			validateCallback = setTimeout(validate, 0);
-		}
+			validateCallback = setTimeout(self.validate, 0);
+		},
 
 		validate: function() {
 			if (validateCallback)
@@ -41,7 +41,7 @@ function ViewModel(module, desc) {
 					get: function() {
 						self.invalidate();
 						return model[s].value;
-					}
+					},
 					set: function(value) {
 						model[s].value = value;
 						self.invalidate();
